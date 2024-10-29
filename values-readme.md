@@ -154,6 +154,16 @@ o	effect: "NoSchedule"
 o	value: "elasticapps"
 o	Tolerations for scheduling pods on specific nodes.
 This configuration file is designed to deploy a robust and secure Elasticsearch cluster with detailed settings for replicas, security, storage, resources, and deployment. It ensures proper resource allocation, security measures, and scalability options for the Elasticsearch nodes.
+==================================
+===================================
+Application Overview
+![image](https://github.com/user-attachments/assets/91b7e115-1191-4db3-babe-c202b278ae61)
+![image](https://github.com/user-attachments/assets/e4650745-431b-4d63-8823-9d982e573e4a)
+
+data ingestion to app
+![image](https://github.com/user-attachments/assets/4f488b2a-a233-4431-9b03-defce30f5882)
+Quantexa Multi Branch CI/CD Jenkins Pipeline
+![image](https://github.com/user-attachments/assets/68c435f4-5d78-46c1-a346-8aaa221d267b)
 
 
 
