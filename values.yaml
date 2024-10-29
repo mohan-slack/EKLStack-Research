@@ -1,0 +1,187 @@
+namespace: sgprho-prd-az1-elastic-search-rjfw4e
+
+masterreplicaCount: 3
+clientreplicaCount: 1
+datareplicaCount: 12
+
+masterService: "elasticsearch-master"
+
+security:
+  certificate:  prudential-elasticsearch.jks
+  password:  quantexa-prudential
+
+secret:
+  KEYSTORE_PASSWORD: quantexa-prudential
+  keystorePassword: elastic
+
+config:
+  SECURITY_CERTIFICATE: prudential-elasticsearch.jks  
+  KEYSTORE_PASSWORD: quantexa-prudential
+
+esimage:
+  repository: elasticsearch
+  pullPolicy: IfNotPresent
+  tag: 7.16.2
+  master:
+    name: elasticsearch-master
+  client:
+    name: elasticsearch-client
+  data:
+    name: elasticsearch-data
+
+esstorage:
+  name: storage
+  master: 
+    name: prudential-aks-master-pvc
+  client:
+    name: prudential-aks-client-pvc
+  data:
+    name: prudential-aks-data-pvc 
+  storageclassname: prudential-aks-managed-disk
+  capacity:
+    storage: 512Gi
+  hostPath:
+    path: /data/prod/1  # WIP
+
+esdeployment:
+  master:
+    name: elasticsearch-master
+  client:
+    name: elasticsearch-client
+  data:
+    name: elasticsearch-data
+
+esresources: 
+  limits:
+    cpu: 4
+    memory: 32Gi
+  requests:
+    cpu: 4
+    memory: 32Gi
+
+esdataresources: 
+  limits:
+    cpu: 8
+    memory: 64Gi
+  requests:
+    cpu: 8
+    memory: 64Gi
+
+env:
+  javaoptions: "-Xms16g -Xmx16g"
+
+eslabels:
+  app: elasticsearch
+  env: prd
+  master: 
+    role: master
+  client: 
+    role: client
+  data:
+    role: data  
+
+esconfigmap:
+  master: 
+    name: elasticsearch-master-config
+  client:
+    name: elasticsearch-client-config
+  data:
+    name: elasticsearch-data-config
+
+esconfigmap2:
+  master: 
+    name: elasticsearch-master-config2
+  client:
+    name: elasticsearch-client-config2
+  data:
+    name: elasticsearch-data-config2
+
+essecret:
+  master: 
+    name: elasticsearch-master-secret
+  client:
+    name: elasticsearch-client-secret
+  data:
+    name: elasticsearch-data-secret  
+
+esservice:
+  type: ClusterIP
+  clientport: 9200
+  transport: 9300
+  master:
+    name: elasticsearch-master
+  client:
+    name: elasticsearch-client
+  data:
+    name: elasticsearch-data
+
+espdb:
+  enabled: true
+  minAvailable: 1
+  master: 
+    name: elasticsearch-master
+  client:
+    name: elasticsearch-client
+  data:
+    name: elasticsearch-data
+  
+esautoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 75
+  targetMemoryUtilizationPercentage: 75
+  master:
+    name: elasticsearch-master
+    deploymentname: es-master-hpa-deployment
+  client:
+    name: elasticsearch-client
+    deploymentname: es-client-hpa-deployment
+  data:
+    name: elasticsearch-data
+    deploymentname: es-data-hpa-deployment
+  
+esingress:
+  enabled: true
+  name: elasticsearch
+  host: elastic-prd-sgprho-prd-az1-elastic-search-rjfw4e.aks-lb1-sgprho-prd-az1-y9g5l0.pru.intranet.asia
+  port: 9200
+  annotations: 
+    kubernetes.io/ingress.class: "nginx"
+    nginx.org/client-max-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600" 
+
+secretFolder:
+  enabled: true
+  mountPath: /usr/share/elasticsearch/config/
+  master:
+    name: elasticsearch-master-config
+  client:
+    name: elasticsearch-client-config
+  data:
+    name: elasticsearch-data-config
+
+esconfigFolder:
+  enabled: true
+  mountPath: /usr/share/elasticsearch/configs
+  master:
+    name: elasticsearch-master-configfolder
+  client:
+    name: elasticsearch-client-configfolder
+  data:
+    name: elasticsearch-data-configfolder
+
+global:
+  applications:
+    tolerations:
+      enabled: true  
+          
+tolerations:
+    enabled: true
+    key: "workload"
+    operator: "Equal"
+    effect: "NoSchedule"
+    value: "elasticapps"
