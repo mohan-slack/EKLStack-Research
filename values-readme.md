@@ -1,4 +1,4 @@
-# 1. Namespace and Replica Counts
+## 1. Namespace and Replica Counts
 
     `namespace: sgprho-prd-az1-elastic-search-rjfw4e`
 
