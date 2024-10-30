@@ -2,7 +2,7 @@
 
     `namespace: sgprho-prd-az1-elastic-search-rjfw4e`
 
-  o	This sets the namespace for the Elasticsearch deployment.
+    - This sets the namespace for the Elasticsearch deployment.
 
       `masterreplicaCount: 3`
 
