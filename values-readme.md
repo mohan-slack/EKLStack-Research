@@ -1,12 +1,14 @@
-1. Namespace and Replica Counts
-•	namespace: sgprho-prd-az1-elastic-search-rjfw4e
-o	This sets the namespace for the Elasticsearch deployment.
-•	masterreplicaCount: 3
-o	Number of master node replicas.
-•	clientreplicaCount: 1
-o	Number of client node replicas.
-•	datareplicaCount: 12
-o	Number of data node replicas.
+#**1. Namespace and Replica Counts**
+
+    `namespace: sgprho-prd-az1-elastic-search-rjfw4e`
+  o	This sets the namespace for the Elasticsearch deployment.
+      `masterreplicaCount: 3`
+  o	Number of master node replicas.
+      `clientreplicaCount: 1`
+  o	Number of client node replicas.
+      `datareplicaCount: 12`
+  o	Number of data node replicas.
+  
 2. Master Service
 •	masterService: "elasticsearch-master"
 o	Name of the master service.
